@@ -4,7 +4,7 @@
 from django.views import generic
 from datetime import date
 
-from models import Batch, Event, Product
+from .models import Batch, Event, Product
 
 
 # Create your views here.
@@ -12,7 +12,7 @@ from models import Batch, Event, Product
 
 class IndexView(generic.ListView):
     template_name = 'inventory/index.html'
-    context_object_name = 'freshness'
+    context_object_name = 'batches'
 
     def get_queryset(self):
         """Return three sets of batches, by exp_date:

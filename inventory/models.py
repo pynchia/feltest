@@ -23,4 +23,4 @@ class Event(models.Model):
     ]
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)  # batch it refers to
     ev_date = models.DateField(auto_now_add=True)  # when it occurred
-    ev_type = models.CharField(choices=EV_TYPES, max_length=4)  # what happened
+    ev_type = models.CharField(choices=EV_TYPES, max_length=8)  # what happened

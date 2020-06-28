@@ -2,20 +2,22 @@
 <html>
 <head>
     <title>Inventory</title>
-	<link href="./style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <h1>Overview of batches by freshness</h1>
+<h1>Overview of food batches by freshness</h1>
+<section id="fresh">
+    <br>
     <h2>Fresh batches:</h1>
-    <table>
-        <tr class="colname">
+    <table class="w3-table-all w3-xlarge">
+        <tr class="w3-green">
             <th id="product">Product</th>
             <th id="purchased">Purchased</th>
             <th id="exp_date">Expires</th>
-            <th id="init_qty">Init qty</th>
-            <th id="curr_qty">Curr qty</th>
+            <th id="init_qty">Initial Qty</th>
+            <th id="curr_qty">Current Qty</th>
         </tr>
-        {% for batch in freshness.fresh %}
+        {% for batch in batches.fresh %}
         <tr class="colname">
             <td id="product">{{batch.product.name}}</td>
             <td id="purchased">{{batch.pur_date}}</td>
@@ -25,5 +27,50 @@
         </tr>
         {% endfor %}
     </table>
+</section>
+<section id="today">
+    <br>
+    <h2>Batches expiring today:</h1>
+    <table class="w3-table-all w3-xlarge">
+        <tr class="w3-blue">
+            <th id="product">Product</th>
+            <th id="purchased">Purchased</th>
+            <th id="exp_date">Expires</th>
+            <th id="init_qty">Initial Qty</th>
+            <th id="curr_qty">Current Qty</th>
+        </tr>
+        {% for batch in batches.today %}
+        <tr class="colname">
+            <td id="product">{{batch.product.name}}</td>
+            <td id="purchased">{{batch.pur_date}}</td>
+            <td id="exp_date">{{batch.exp_date}}</td>
+            <td id="init_qty">{{batch.init_qty}}</td>
+            <td id="curr_qty">{{batch.curr_qty}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+<section id="expired">
+    <br>
+    <h2>Expired batches:</h1>
+    <table class="w3-table-all w3-xlarge">
+        <tr class="w3-red">
+            <th id="product">Product</th>
+            <th id="purchased">Purchased</th>
+            <th id="exp_date">Expires</th>
+            <th id="init_qty">Initial Qty</th>
+            <th id="curr_qty">Current Qty</th>
+        </tr>
+        {% for batch in batches.expired %}
+        <tr class="colname">
+            <td id="product">{{batch.product.name}}</td>
+            <td id="purchased">{{batch.pur_date}}</td>
+            <td id="exp_date">{{batch.exp_date}}</td>
+            <td id="init_qty">{{batch.init_qty}}</td>
+            <td id="curr_qty">{{batch.curr_qty}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
 </body>
 </html>
