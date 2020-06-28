@@ -37,7 +37,8 @@ Product:
 	name
 	supplier
 	weight
-	# price
+	valid
+	
 
 Batch:
 	product(fk on Product)  # which product
