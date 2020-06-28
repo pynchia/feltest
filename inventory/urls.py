@@ -4,7 +4,7 @@ from inventory import views
 
 
 urlpatterns = [
-    path('products/', Product.as_view(), name='products'),
-    path('batches/', Batch.as_view(), name='batches'),
-    path('events/', Event.as_view(), name='events'),
+    path('products/', views.Product.as_view(), name='products'),
+    path('batches/', views.Batch.as_view(), name='batches'),
+    path('events/', views.Event.as_view(), name='events'),
 ]
