@@ -1,11 +1,17 @@
 
 from django.urls import path
-from . import views
+from .views import IndexView
+from .views_API import (
+    ProductListCreate, ProductDetail,
+    BatchListCreate,
+)
+
 
 app_name = 'inventory'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='products'),
-    # path('products/', views.ProductView.as_view(), name='products'),
-    # path('batches/', views.BatchView.as_view(), name='batches'),
+    # path('', IndexView.as_view(), name='products'),
+    path('products/', ProductListCreate.as_view(), name='products'),
+    path('products/<int:pk>', ProductDetail.as_view(), name='product_detail'),
+    path('batches/', BatchListCreate.as_view(), name='batches'),
     # path('events/', views.EventView.as_view(), name='events'),
 ]
