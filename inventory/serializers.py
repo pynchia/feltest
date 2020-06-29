@@ -15,3 +15,6 @@ class BatchSerializer (serializers.ModelSerializer):
             'id' , 'product' , 'pur_date' , 'exp_date',
             'init_qty', 'curr_qty', 'tot_cost'
         )
+
+    def create(self, validated_data):
+        return Batch(**validated_data, curr_qty=validated_data['init_qty'])

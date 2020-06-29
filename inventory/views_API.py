@@ -19,7 +19,9 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
 
 
-class BatchListCreate(APIView):
+class BatchListCreate(generics.ListCreateAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
 
     def get(self, request, *args, **kwargs):
         """
@@ -44,12 +46,15 @@ class BatchListCreate(APIView):
             "expired": expired_serializer.data,
         })
 
-    def post(self, request, format=None):
-        serializer = BatchSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.validated_data['curr_qty'] = serializer.validated_data['init_qty']
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def post(self, request, format=None):
+    #     serializer = BatchSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.validated_data['curr_qty'] = serializer.validated_data['init_qty']
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class BatchDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
