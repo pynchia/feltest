@@ -28,3 +28,12 @@ class BatchSerializer (serializers.ModelSerializer):
             instance.curr_qty = curr_qty
             instance.save()
         return instance
+
+
+class EventSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = (
+            'id' , 'batch' , 'ev_date' , 'ev_type',
+            'ev_info',
+        )

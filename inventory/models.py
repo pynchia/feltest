@@ -18,9 +18,11 @@ class Batch(models.Model):
 
 
 class Event(models.Model):
+    TYPE_QTY = 'QTY'
     EV_TYPES = [
-        ('QTY', 'Quantity'),
+        (TYPE_QTY, 'Quantity'),
     ]
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)  # batch it refers to
-    ev_date = models.DateField(auto_now_add=True)  # when it occurred
+    ev_date = models.DateTimeField(auto_now_add=True)  # when it occurred
     ev_type = models.CharField(choices=EV_TYPES, max_length=8)  # what happened
+    ev_info = models.CharField(max_length=64)  # further info

@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.db.models import Sum
+from django.forms.models import model_to_dict
 
 from rest_framework import generics, mixins
 from rest_framework.views import APIView
@@ -8,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Product, Batch, Event
-from .serializers import ProductSerializer, BatchSerializer
+from .serializers import ProductSerializer, BatchSerializer, EventSerializer
 
 
 class ProductListCreate(generics.ListCreateAPIView):
@@ -29,19 +30,18 @@ class ProductDetail(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         product = self.get_object()
-        batches = product.batch_set.all()  # the batches where it appears
-        curr_total_qty = batches.aggregate(Sum('curr_qty'))['curr_qty__sum']
+        batches = product.batch_set.order_by('exp_date')  # the batches where it appears
         batch_serializer = BatchSerializer(
-            product.batch_set.all().order_by('exp_date'),
+            batches,
             many=True
         )
-        return Response({
-            "name": product.name,
-            "supplier": product.supplier,
-            "weight": product.weight,
-            "curr_total_qty": curr_total_qty,
-            "batches": batch_serializer.data
-        })
+        curr_total_qty = batches.aggregate(Sum('curr_qty'))['curr_qty__sum']
+        ret_obj = model_to_dict(product)  # basic product info
+        ret_obj.update(
+            curr_total_qty=curr_total_qty,  # add the total qty
+            batches=batch_serializer.data  # and its batches
+        )
+        return Response(ret_obj)
 
 
 class BatchListCreate(generics.ListCreateAPIView):
@@ -89,6 +89,34 @@ class BatchDetail(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def patch(self, request, *args, **kwargs):
+    def patch(self, request, pk,*args, **kwargs):
         kwargs['partial'] = True
-        return self.partial_update(request, *args, **kwargs)
+        batch = self.get_object()
+        resp = self.partial_update(request, *args, **kwargs)
+        event = Event.objects.create(
+            batch=batch,
+            ev_type=Event.TYPE_QTY,
+            ev_info=f"From {batch.curr_qty} to {request.data['curr_qty']}"
+        )
+        return resp
+
+
+class BatchHistory(generics.RetrieveAPIView):
+    """
+    GET the details of a specific product
+    It includes the current inventory info (total and batch breakdown)
+    """
+    queryset = Batch.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        batch = self.get_object()
+        events = batch.event_set.order_by('ev_date')  # the events of this batch
+        event_serializer = EventSerializer(
+            events,
+            many=True
+        )
+        ret_obj = model_to_dict(batch)  # basic batch info
+        ret_obj.update(  # add its events
+            events=event_serializer.data
+        )
+        return Response(ret_obj)
