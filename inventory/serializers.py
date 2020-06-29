@@ -17,4 +17,7 @@ class BatchSerializer (serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        return Batch(**validated_data, curr_qty=validated_data['init_qty'])
+        return Batch.objects.create(
+            **validated_data,
+            curr_qty=validated_data['init_qty']
+        )
