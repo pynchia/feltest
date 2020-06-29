@@ -1,15 +1,16 @@
+
 from django.db import models
 
 
 class Product(models.Model):
     name = models.CharField(max_length=64)  # Product name
-    supplier = models.CharField(max_length=64)  # Bought from
     weight = models.FloatField(default=0.0)  # in Kg
     # valid = models.BooleanField(default=True)
 
 
 class Batch(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)  # product in the batch
+    supplier = models.CharField(max_length=64)  # Bought from
     pur_date = models.DateField(auto_now_add=True)  # purchased on
     exp_date = models.DateField()  # expires on
     init_qty = models.IntegerField()  # initial quantity

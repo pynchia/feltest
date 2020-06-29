@@ -1,6 +1,5 @@
 # Inventory management system
 
-
 ## Setup and execution of the tests
 
 `docker build --target pybuild -t testbuild .`
@@ -17,38 +16,62 @@ Launch it
 
 `docker run -it -p 8000:8000 appbuild`
 
-## Web access to frontend
+## Access to the REST API
 
-Point your browser to:
-
-- `http://localhost:8000/`
-to use the web interface
+- `http://localhost:8000/inventory/api/v1.0/`
+the root of the API
 
 - `http://localhost:8000/`
-to enjoy the  REST API documentation DRF generates automatically
+the  REST API documentation DRF generates automatically
+
+## Access to frontend
+
+- `http://localhost:8000/`
+the web interface (limited to the overview right now)
+
+- `http://localhost:8000/`
+the  REST API documentation DRF generates automatically
 
 ## Assumptions
 
-A batch contains N items of the same product, e.g. 1000 packets of Pilau rice
+A batch contains N items of the same product, e.g. 1000 packets of rice
 
 ## Data model
 
 Product:
-	name
-	supplier
-	weight
-	valid
-	
+- name
+- weight
+
 
 Batch:
-	product(fk on Product)  # which product
-	pur_date  # purchased on
-	exp_date  # expires on
-	init_qty  # initial quantity
-	curr_qty  # current quantity
-	tot_cost  # paid for the batch
+- product(fk on Product)  # which product
+- supplier  # (it could be a fk on Supplier, not modelled now)
+- pur_date  # purchased on
+- exp_date  # expires on
+- init_qty  # initial quantity
+- curr_qty  # current quantity
+- tot_cost  # paid for the batch
 
-BatchEvents:
-	batch(fk on Batch)  # to which batch it refers
-	ev_date  # when it occurred
-	ev_type  # ADD, SUB
+
+Events:
+- batch(fk on Batch)  # to which batch it refers
+- ev_date  # when it occurred
+- ev_type  # QTY, etc.
+- ev_info  # Further info about the event, e.g. qty variation
+
+## Points for improvements
+
+### Code areas and their times
+
+Database lookup 0.0090s (65.7%)
+Serialization 0.0025s (18.2%)
+Django request/response 0.0015s (10.9%)
+API view 0.0005s (3.6%)
+Response rendering 0.0002s (1.5%)
+Total 0.0137s
+
+- Cache DB lookup
+- Remove serialization where unnecessary (e.g. use qs.values() instead)
+
+
+

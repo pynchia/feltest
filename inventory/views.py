@@ -4,13 +4,14 @@
 from django.views import generic
 from datetime import date
 
-from .models import Batch, Event, Product
-
-
-# Create your views here.
+from .models import Batch
 
 
 class IndexView(generic.ListView):
+    """
+    A simple web page to show the overview of the freshness
+    of the batches
+    """
     template_name = 'inventory/index.html'
     context_object_name = 'batches'
 
