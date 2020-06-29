@@ -21,3 +21,10 @@ class BatchSerializer (serializers.ModelSerializer):
             **validated_data,
             curr_qty=validated_data['init_qty']
         )
+
+    def update(self, instance, validated_data):
+        curr_qty = validated_data.get('curr_qty')
+        if curr_qty is not None:
+            instance.curr_qty = curr_qty
+            instance.save()
+        return instance
