@@ -18,19 +18,26 @@ Launch it
 
 ## Access to the REST API
 
-- `http://localhost:8000/inventory/api/v1.0/`
-the root of the API
+- the root of the API is
 
-- `http://localhost:8000/`
-the  REST API documentation DRF generates automatically
+	http://localhost:8000/inventory/api/v1.0/
+
+- the available endpoints are
+
+	http://localhost:8000/inventory/api/v1.0/products/
+	http://localhost:8000/inventory/api/v1.0/products/<id>
+	http://localhost:8000/inventory/api/v1.0/batches/
+	http://localhost:8000/inventory/api/v1.0/batches/<id>
+	http://localhost:8000/inventory/api/v1.0/batches/<id>/history
+
+- the  REST API documentation is generated automatically by visiting the endpoints via the browser, e.g.
+
+	http://localhost:8000/inventory/api/v1.0/products/
 
 ## Access to frontend
 
-- `http://localhost:8000/`
-the web interface (limited to the overview right now)
-
-- `http://localhost:8000/`
-the  REST API documentation DRF generates automatically
+- the web interface is limited to the overview
+http://localhost:8000/
 
 ## Assumptions
 
@@ -39,12 +46,13 @@ A batch contains N items of the same product, e.g. 1000 packets of rice
 ## Data model
 
 Product:
+
 - name
 - weight
 
-
 Batch:
-- product(fk on Product)  # which product
+
+- product (fk on Product)  # which product
 - supplier  # (it could be a fk on Supplier, not modelled now)
 - pur_date  # purchased on
 - exp_date  # expires on
@@ -52,9 +60,9 @@ Batch:
 - curr_qty  # current quantity
 - tot_cost  # paid for the batch
 
-
 Events:
-- batch(fk on Batch)  # to which batch it refers
+
+- batch (fk on Batch)  # to which batch it refers
 - ev_date  # when it occurred
 - ev_type  # QTY, etc.
 - ev_info  # Further info about the event, e.g. qty variation
@@ -72,6 +80,3 @@ Total 0.0137s
 
 - Cache DB lookup
 - Remove serialization where unnecessary (e.g. use qs.values() instead)
-
-
-
