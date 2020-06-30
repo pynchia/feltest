@@ -27,6 +27,7 @@ Launch it
 	http://localhost:8000/inventory/api/v1.0/products/
 	http://localhost:8000/inventory/api/v1.0/products/<id>
 	http://localhost:8000/inventory/api/v1.0/batches/
+	http://localhost:8000/inventory/api/v1.0/batches/overview
 	http://localhost:8000/inventory/api/v1.0/batches/<id>
 	http://localhost:8000/inventory/api/v1.0/batches/<id>/history
 

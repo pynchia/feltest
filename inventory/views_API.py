@@ -44,10 +44,18 @@ class ProductDetail(generics.RetrieveAPIView):
         return Response(ret_obj)
 
 
+
 class BatchListCreate(generics.ListCreateAPIView):
     """
-    GET all batches (as an overview by freshness)
+    GET all batches
     Create a batch (POST)
+    """
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+
+class BatchOverview(generics.ListAPIView):
+    """
+    GET an overview of all batches by freshness
     """
     queryset = Batch.objects.all()
     serializer_class = BatchSerializer

@@ -53,7 +53,7 @@ def test_product_get_all(api_client):
 
 @pytest.mark.django_db
 def test_product_get_one(api_client, sample_product, create_product):
-    product = create_product(**sample_product)
+    product = create_product(sample_product)
     sample_batch1 = {
         "supplier": "ACME",
         "exp_date": "2020-07-21",
@@ -87,7 +87,7 @@ def test_product_get_one(api_client, sample_product, create_product):
 
 @pytest.mark.django_db
 def test_product_update_patch_disallowed(api_client, sample_product, create_product):
-    product = create_product(**sample_product)
+    product = create_product(sample_product)
     url = reverse('inventory:product_detail', args=(product.id,))
     resp = api_client.put(url, sample_product, format='json')
     assert resp.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
