@@ -4,7 +4,7 @@ sample_prod = {
     "weight": "0.2"
 }
 
-sample_batch = {
+sample_bat = {
     "product": 2,
     "supplier": "ACME",
     "exp_date": "2020-07-21",

@@ -80,7 +80,9 @@ Events:
 - Deploy multiple instances of the microservice, even if sharing a
 common DB instance, e.g. use PostgreSQL.
 
-### Code areas and their times
+### Performance
+
+The code spends time in:
 
 Database lookup 0.0090s (65.7%)
 Serialization 0.0025s (18.2%)
@@ -98,3 +100,7 @@ Possible actions:
 - Use basic HTTPResponse
 
 See https://www.dabapps.com/blog/api-performance-profiling-django-rest-framework/
+
+### Technical debt
+
+1. Use a custom model manager to create batch events instead of doing it in the view (when the batch is updated/patched)

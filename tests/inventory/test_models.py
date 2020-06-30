@@ -26,4 +26,4 @@ def test_product_create_invalid_name():
 def test_product_create_invalid_weight():
     Product.objects.create(name='testprod', weight='xyz')
 
-# more tests for the other models....
+# more tests for the other models..., same soup

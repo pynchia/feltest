@@ -17,7 +17,7 @@ class ProductListCreate(generics.ListCreateAPIView):
     GET all products
     Create a product (POST)
     """
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('name')
     serializer_class = ProductSerializer
 
 
