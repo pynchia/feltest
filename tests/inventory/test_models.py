@@ -1,4 +1,6 @@
+
 import pytest
+from django.core.exceptions import ValidationError
 
 from inventory.models import Product
 
@@ -16,14 +18,14 @@ def test_product_create():
     assert Product.objects.count() == 1
 
 @pytest.mark.django_db
-@pytest.mark.xfail
 def test_product_create_invalid_name():
-    prod = Product.objects.create(name='')
-    prod.full_clean()
+    with pytest.raises(ValidationError):
+        prod = Product.objects.create(name='')
+        prod.full_clean()
 
 @pytest.mark.django_db
-@pytest.mark.xfail
 def test_product_create_invalid_weight():
-    Product.objects.create(name='testprod', weight='xyz')
+    with pytest.raises(ValueError):
+        Product.objects.create(name='testprod', weight='xyz')
 
 # more tests for the other models..., same soup

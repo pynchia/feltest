@@ -20,8 +20,8 @@ COPY --from=pybuild /app /app
 
 WORKDIR /app
 # Remove unnecessary files
-RUN rm -rf tests/
-RUN rm .pytest_cache pytest.ini run-tests.sh
+RUN rm -rf tests/ .pytest_cache/
+RUN rm pytest.ini run-tests.sh
 
 # Create the DB
 # note: of course, this should be persisted by mounting a volume if
