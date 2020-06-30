@@ -39,6 +39,12 @@ Launch it
 - the web interface is limited to the overview
 http://localhost:8000/
 
+![Sample overview page](sample-overview.png "Overview page")
+
+## Django admin dashboard
+
+	http://localhost:8000/admin/
+
 ## Assumptions
 
 A batch contains N items of the same product, e.g. 1000 packets of rice
@@ -78,5 +84,5 @@ API view 0.0005s (3.6%)
 Response rendering 0.0002s (1.5%)
 Total 0.0137s
 
-- Cache DB lookup
+- Cache DB lookup, e.g. with Redis
 - Remove serialization where unnecessary (e.g. use qs.values() instead)
