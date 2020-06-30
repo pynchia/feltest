@@ -3,11 +3,12 @@ import pytest
 from inventory.models import Product
 
 
-# Testing the models is useful to ensure the models are aligned
+# Testing the models can be useful to ensure the models are aligned
 # to what we expect them to be and no fortuitous changes
 # to them compromise the system.
-# Is models change, then tests need to change accordingly
-# and represent an opportunity to ponder on such changes
+# If models change, then tests need to change accordingly
+# and represent an opportunity to validate such changes
+
 
 @pytest.mark.django_db
 def test_product_create():

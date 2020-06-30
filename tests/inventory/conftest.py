@@ -9,6 +9,11 @@ def api_client():
    from rest_framework.test import APIClient
    return APIClient()
 
+
+@pytest.fixture
+def sample_product():
+   return sample_prod.copy()
+
 @pytest.fixture
 def create_product(db):
    def make_prod(**kwargs):
