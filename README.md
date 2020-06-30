@@ -58,7 +58,7 @@ Product:
 
 Batch:
 
-- product (fk on Product)  # which product
+- product (fk to Product)  # which product
 - supplier  # (it could be a fk on Supplier, not modelled now)
 - pur_date  # purchased on
 - exp_date  # expires on
@@ -68,12 +68,17 @@ Batch:
 
 Events:
 
-- batch (fk on Batch)  # to which batch it refers
+- batch (fk to Batch)  # to which batch it refers
 - ev_date  # when it occurred
 - ev_type  # QTY, etc.
 - ev_info  # Further info about the event, e.g. qty variation
 
-## Points for improvements
+## Improving performance
+
+### Scaling
+
+- Deploy multiple instances of the microservice, even if sharing a
+common DB instance, e.g. use PostgreSQL.
 
 ### Code areas and their times
 
@@ -84,5 +89,12 @@ API view 0.0005s (3.6%)
 Response rendering 0.0002s (1.5%)
 Total 0.0137s
 
+Possible actions:
+
 - Cache DB lookup, e.g. with Redis
 - Remove serialization where unnecessary (e.g. use qs.values() instead)
+- Remove unnecessary middleware
+- Make the view slimmer
+- Use basic HTTPResponse
+
+See https://www.dabapps.com/blog/api-performance-profiling-django-rest-framework/
