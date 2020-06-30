@@ -84,27 +84,29 @@ Events:
 
 - Deploy multiple instances of the microservice, even if sharing a
 common DB instance, e.g. use PostgreSQL.
+- Sharding the DB
+- Load balancing and auto-scaling groups
 
-### Performance
+
+### Unit performance
 
 The code spends time in:
 
-Database lookup 0.0090s (65.7%)
-Serialization 0.0025s (18.2%)
-Django request/response 0.0015s (10.9%)
-API view 0.0005s (3.6%)
-Response rendering 0.0002s (1.5%)
+- Database lookup 0.0090s (65.7%)
+- Serialization 0.0025s (18.2%)
+- Django request/response 0.0015s (10.9%)
+- API view 0.0005s (3.6%)
+- Response rendering 0.0002s (1.5%)
 Total 0.0137s
 
 Possible actions:
 
+- Index the DB properly
 - Cache DB lookup, e.g. with Redis
 - Remove serialization where unnecessary (e.g. use qs.values() instead)
 - Remove unnecessary middleware
 - Make the view slimmer
 - Use basic HTTPResponse
-
-See https://www.dabapps.com/blog/api-performance-profiling-django-rest-framework/
 
 ### Technical debt
 
