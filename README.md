@@ -2,7 +2,7 @@
 
 ## Setup and execution of the tests
 
-`docker build --target pybuild -t testbuild .`
+`docker build --no-cache --target pybuild -t testbuild .`
 
 `docker run -it testbuild`
 

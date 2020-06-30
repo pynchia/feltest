@@ -1,0 +1,8 @@
+venv
+.venv
+.git
+htmlcov
+*.coverage
+*.egg-info
+*.vscode
+*.sqlite3
