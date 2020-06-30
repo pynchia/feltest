@@ -3,6 +3,7 @@ from rest_framework import status
 import pytest
 
 from inventory.models import Product, Batch
+from tests.inventory.utils import add_many_products
 
 
 @pytest.mark.django_db
@@ -16,7 +17,7 @@ def test_batch_create(api_client, sample_batch):
     assert Batch.objects.count() == 1
     db_prod = Batch.objects.get(pk=ret_batch['id'])
     assert db_prod.supplier == ret_batch['supplier']
-    # etc. for the other fields
+    # etc. for the remaining fields
 
 @pytest.mark.django_db
 def test_batch_create_invalid_short_supplier(api_client, sample_batch):
