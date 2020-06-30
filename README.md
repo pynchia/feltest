@@ -2,8 +2,9 @@
 
 ## Assumptions
 
-1. The present deployment is for a development/test environment, not for a production one.
-In such case we'd use a different database (I suggest PostreSQL) and web server (Apache or uvcorn) combined with a reverse proxy (Nginx)
+1. The present setup is for a development/test environment only
+ **It must not be deployed to a production environment.**
+*In such case we'd use a different database (I suggest PostreSQL) and web server (Apache or uvcorn) combined with a reverse proxy (Nginx)*
 
 2. A batch contains N items of the same product, e.g. 1000 packets of rice
 
